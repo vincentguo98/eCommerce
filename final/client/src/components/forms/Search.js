@@ -10,7 +10,7 @@ export default function Search() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.get(`/products/search/${values?.keyword}`);
+      const { data } = await axios.get(`/api/products/search/${values?.keyword}`);
       // console.log(data);
       setValues({ ...values, results: data });
       navigate("/search");

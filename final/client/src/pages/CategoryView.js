@@ -18,7 +18,7 @@ export default function CategoryView() {
 
   const loadProductsByCatgory = async () => {
     try {
-      const { data } = await axios.get(`/products-by-category/${params.slug}`);
+      const { data } = await axios.get(`/api/products-by-category/${params.slug}`);
       setCategory(data.category);
       setProducts(data.products);
     } catch (err) {

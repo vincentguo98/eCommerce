@@ -10,7 +10,7 @@ export default function useCategory() {
 
   const loadCategories = async () => {
     try {
-      const { data } = await axios.get("/categories");
+      const { data } = await axios.get("/api/categories");
       setCategories(data);
     } catch (err) {
       console.log(err);

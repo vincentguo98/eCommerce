@@ -32,7 +32,7 @@ export default function ProductView() {
 
   const loadProduct = async (req, res) => {
     try {
-      const { data } = await axios.get(`/product/${params.slug}`);
+      const { data } = await axios.get(`/api/product/${params.slug}`);
       setProduct(data);
       loadRelated(data._id, data.category._id);
     } catch (err) {
@@ -43,7 +43,7 @@ export default function ProductView() {
   const loadRelated = async (productId, categoryId) => {
     try {
       const { data } = await axios.get(
-        `/related-products/${productId}/${categoryId}`
+        `/api/related-products/${productId}/${categoryId}`
       );
       setRelated(data);
     } catch (err) {

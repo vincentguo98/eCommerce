@@ -26,7 +26,7 @@ export default function UserProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put("/profile", {
+      const { data } = await axios.put("/api/profile", {
         name,
         password,
         address,

@@ -30,7 +30,7 @@ export default function AdminProduct() {
 
   const loadCategories = async () => {
     try {
-      const { data } = await axios.get("/categories");
+      const { data } = await axios.get("/api/categories");
       setCategories(data);
     } catch (err) {
       console.log(err);
@@ -49,7 +49,7 @@ export default function AdminProduct() {
       productData.append("shipping", shipping);
       productData.append("quantity", quantity);
 
-      const { data } = await axios.post("/product", productData);
+      const { data } = await axios.post("/api/product", productData);
       if (data?.error) {
         toast.error(data.error);
       } else {

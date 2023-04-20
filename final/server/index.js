@@ -11,9 +11,11 @@ dotenv.config();
 
 const app = express();
 
+
+let MONGO_URI= 'mongodb://localhost:27017'
 // db
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(MONGO_URI)
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log("DB ERROR => ", err));
 
@@ -27,7 +29,13 @@ app.use("/api", authRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 
-const port = process.env.PORT || 8000;
+app.use(express.static('build'))
+
+app.get('*', (req,res) =>{
+  res.sendFile('index.html', {root: 'build'});
+});
+
+const port = process.env.PORT || 3002;
 
 app.listen(port, () => {
   console.log(`Node server is running on port ${port}`);

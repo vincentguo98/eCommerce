@@ -21,7 +21,7 @@ export default function Shop() {
 
   const loadFilteredProducts = async () => {
     try {
-      const { data } = await axios.post("/filtered-products", {
+      const { data } = await axios.post("/api/filtered-products", {
         checked,
         radio,
       });
@@ -34,7 +34,7 @@ export default function Shop() {
 
   const loadProducts = async () => {
     try {
-      const { data } = await axios.get("/products");
+      const { data } = await axios.get("/api/products");
       setProducts(data);
     } catch (err) {
       console.log(err);
@@ -47,7 +47,7 @@ export default function Shop() {
 
   const loadCatgories = async () => {
     try {
-      const { data } = await axios.get("/categories");
+      const { data } = await axios.get("/api/categories");
       setCategories(data);
     } catch (err) {
       console.log(err);

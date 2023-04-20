@@ -32,6 +32,7 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role: 1
     }).save();
     // 6. create signed jwt
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
@@ -45,7 +46,7 @@ export const register = async (req, res) => {
         role: user.role,
         address: user.address,
       },
-      token,
+      // token,
     });
   } catch (err) {
     console.log(err);

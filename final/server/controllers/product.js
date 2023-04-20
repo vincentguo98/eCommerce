@@ -9,12 +9,12 @@ import sgMail from "@sendgrid/mail";
 dotenv.config();
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 
-const gateway = new braintree.BraintreeGateway({
-  environment: braintree.Environment.Sandbox,
-  merchantId: process.env.BRAINTREE_MERCHANT_ID,
-  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
-  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
-});
+// const gateway = new braintree.BraintreeGateway({
+//   environment: braintree.Environment.Sandbox,
+//   merchantId: process.env.BRAINTREE_MERCHANT_ID,
+//   publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+//   privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+// });
 
 export const create = async (req, res) => {
   try {
@@ -233,72 +233,72 @@ export const relatedProducts = async (req, res) => {
     console.log(err);
   }
 };
+//
+// export const getToken = async (req, res) => {
+//   try {
+//     gateway.clientToken.generate({}, function (err, response) {
+//       if (err) {
+//         res.status(500).send(err);
+//       } else {
+//         res.send(response);
+//       }
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
-export const getToken = async (req, res) => {
-  try {
-    gateway.clientToken.generate({}, function (err, response) {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        res.send(response);
-      }
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const processPayment = async (req, res) => {
-  try {
-    // console.log(req.body);
-    const { nonce, cart } = req.body;
-
-    let total = 0;
-    cart.map((i) => {
-      total += i.price;
-    });
-    // console.log("total => ", total);
-
-    let newTransaction = gateway.transaction.sale(
-      {
-        amount: total,
-        paymentMethodNonce: nonce,
-        options: {
-          submitForSettlement: true,
-        },
-      },
-      function (error, result) {
-        if (result) {
-          // res.send(result);
-          // create order
-          const order = new Order({
-            products: cart,
-            payment: result,
-            buyer: req.user._id,
-          }).save();
-          // decrement quantity
-          decrementQuantity(cart);
-          // const bulkOps = cart.map((item) => {
-          //   return {
-          //     updateOne: {
-          //       filter: { _id: item._id },
-          //       update: { $inc: { quantity: -0, sold: +1 } },
-          //     },
-          //   };
-          // });
-
-          // Product.bulkWrite(bulkOps, {});
-
-          res.json({ ok: true });
-        } else {
-          res.status(500).send(error);
-        }
-      }
-    );
-  } catch (err) {
-    console.log(err);
-  }
-};
+// export const processPayment = async (req, res) => {
+//   try {
+//     // console.log(req.body);
+//     const { nonce, cart } = req.body;
+//
+//     let total = 0;
+//     cart.map((i) => {
+//       total += i.price;
+//     });
+//     // console.log("total => ", total);
+//
+//     let newTransaction = gateway.transaction.sale(
+//       {
+//         amount: total,
+//         paymentMethodNonce: nonce,
+//         options: {
+//           submitForSettlement: true,
+//         },
+//       },
+//       function (error, result) {
+//         if (result) {
+//           // res.send(result);
+//           // create order
+//           const order = new Order({
+//             products: cart,
+//             payment: result,
+//             buyer: req.user._id,
+//           }).save();
+//           // decrement quantity
+//           decrementQuantity(cart);
+//           // const bulkOps = cart.map((item) => {
+//           //   return {
+//           //     updateOne: {
+//           //       filter: { _id: item._id },
+//           //       update: { $inc: { quantity: -0, sold: +1 } },
+//           //     },
+//           //   };
+//           // });
+//
+//           // Product.bulkWrite(bulkOps, {});
+//
+//           res.json({ ok: true });
+//         } else {
+//           res.status(500).send(error);
+//         }
+//       }
+//     );
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 const decrementQuantity = async (cart) => {
   try {

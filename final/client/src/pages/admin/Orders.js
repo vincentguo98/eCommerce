@@ -29,7 +29,7 @@ export default function AdminOrders() {
 
   const getOrders = async () => {
     try {
-      const { data } = await axios.get("/all-orders");
+      const { data } = await axios.get("/api/all-orders");
       setOrders(data);
     } catch (err) {
       console.log(err);
@@ -39,7 +39,7 @@ export default function AdminOrders() {
   const handleChange = async (orderId, value) => {
     setChangedStatus(value);
     try {
-      const { data } = await axios.put(`/order-status/${orderId}`, {
+      const { data } = await axios.put(`/api/order-status/${orderId}`, {
         status: value,
       });
       getOrders();

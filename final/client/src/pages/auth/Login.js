@@ -19,7 +19,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`/login`, {
+      const { data } = await axios.post(`/api/login`, {
         email,
         password,
       });
@@ -27,6 +27,7 @@ export default function Login() {
       if (data?.error) {
         toast.error(data.error);
       } else {
+        console.log("data:" + JSON.stringify(data))
         localStorage.setItem("auth", JSON.stringify(data));
         setAuth({ ...auth, token: data.token, user: data.user });
         toast.success("Login successful");

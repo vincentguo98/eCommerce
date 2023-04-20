@@ -18,7 +18,7 @@ export default function AdminProducts() {
 
   const loadProducts = async () => {
     try {
-      const { data } = await axios.get("/products");
+      const { data } = await axios.get("/api/products");
       setProducts(data);
     } catch (err) {
       console.log(err);

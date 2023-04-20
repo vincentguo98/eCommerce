@@ -12,7 +12,7 @@ export default function AdminRoute() {
 
   useEffect(() => {
     const adminCheck = async () => {
-      const { data } = await axios.get(`/admin-check`);
+      const { data } = await axios.get(`/api/admin-check`);
       if (data.ok) {
         setOk(true);
       } else {
